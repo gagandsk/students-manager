@@ -8,8 +8,8 @@
 import Foundation
 
 public protocol Manageable {
-    func insertStudent(_ student: Student)
-    func asignSubjectToStudent(subject: Subject, score: Double, student: Student)
+    func insertStudent(_ student: Student?)
+    func asignSubjectToStudent(subject: Subject, score: Double, student: Student?)
     func generateStudentsReport()
     func getApprovedStudents() ->[Student]
     func getReprobedStudents() ->[Student]
@@ -25,15 +25,22 @@ public class StudentsManager: Manageable {
         self.students = students
     }
     
-    public func insertStudent(_ student: Student) {
+    public func insertStudent(_ student: Student?) {
+        guard let student else {
+            return
+        }
         students.append(student)
     }
     
-    public func asignSubjectToStudent(subject: Subject, score: Double, student: Student) {
-        for s in students {
-            if student.email.elementsEqual(s.email) {
-                s.assignSubject(subject: subject, score:score)
+    public func asignSubjectToStudent(subject: Subject, score: Double, student: Student?) {
+        if let student {
+            for s in students {
+                if student.email.elementsEqual(s.email) {
+                    s.assignSubject(subject: subject, score:score)
+                }
             }
+        } else {
+            //TODO: throw error
         }
     }
     
