@@ -1,21 +1,20 @@
 //
 //  StudentsManager.swift
-//  
 //
-//  Created by Gagandeep Dass Kaur on 20/2/25.
+//
+//  Created by Santiago Moreno on 24/10/24.
 //
 
 import Foundation
 
 public protocol Manageable {
-    //con 'throws' estamos indicando que vamos a lanzar un error
     func insertStudent(_ student: Student?) throws
     func asignSubjectToStudent(subject: Subject, score: Double, student: Student?) throws
     func generateStudentsReport() throws
-    func getApprovedStudents() ->[Student]
-    func getReprobedStudents() ->[Student]
+    func getApprovedStudents() -> [Student]
+    func getReprobedStudents() -> [Student]
     func getAverages() -> [Double]
-    func getTotalAverage() -> Double
+    func getTotalAverages() -> Double
     func getCoursedSubjects() -> Set<Subject>
 }
 
@@ -35,16 +34,15 @@ public class StudentsManager: Manageable {
         if(students.count < maxStudents) {
             students.append(student)
         } else {
-            throw ManagerError.maxStudentReachedError(max: maxStudents)
+            throw ManagerError.maxStudentsReachedError(max: maxStudents)
         }
-        
     }
     
     public func asignSubjectToStudent(subject: Subject, score: Double, student: Student?) throws {
         if let student {
             for s in students {
-                if student.email.elementsEqual(s.email) {
-                    s.assignSubject(subject: subject, score:score)
+                if student.email.elementsEqual(s.email) {  // ==
+                    s.assignSubject(subject: subject, score: score)
                 }
             }
         } else {
@@ -53,7 +51,7 @@ public class StudentsManager: Manageable {
     }
     
     public func generateStudentsReport() throws {
-        if(students.isEmpty) {
+        if students.isEmpty {
             throw ManagerError.reportNotFoundError
         } else {
             for student in students {
@@ -82,7 +80,7 @@ public class StudentsManager: Manageable {
         }
     }
     
-    public func getTotalAverage() -> Double {
+    public func getTotalAverages() -> Double {
         let avr = getAverages()
         let sum = avr.reduce(0.0, +)
         return sum / Double(avr.count)

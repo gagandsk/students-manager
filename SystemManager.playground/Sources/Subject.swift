@@ -1,13 +1,13 @@
 //
 //  Subject.swift
-//  
 //
-//  Created by Gagandeep Dass Kaur on 19/2/25.
+//
+//  Created by Santiago Moreno on 23/10/24.
 //
 
 import Foundation
 
-public struct Subject: Describable, Hashable{
+public struct Subject: Describable, Hashable {
     let name: String
     let teacherName: String
     let level: SubjectLevel
@@ -22,23 +22,23 @@ public struct Subject: Describable, Hashable{
         return score >= minimumScore()
     }
     
-    public func describe() -> String{
+    public func describe() -> String {
         return """
-        --------------------------------
-        Subject: \(name)
-        Teacher: \(teacherName)
-        Minimum Score: \(minimumScore())
+        -----------------------------
+        Materia: \(name)
+        Profesor: \(teacherName)
+        Puntaje minimo para pasar: \(minimumScore())
         """
     }
     
     private func minimumScore() -> Double {
         switch level {
-            case .basic:
-                return 50.0
-            case .intermediate:
-                return 70.0
-            case .advanced:
-                return 80.0
+        case .basic:
+            return 50.0
+        case .intermediate:
+            return 70.0
+        case .advanced:
+            return 80.0
         }
     }
 }

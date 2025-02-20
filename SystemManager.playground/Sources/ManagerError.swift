@@ -1,8 +1,8 @@
 //
 //  ManagerError.swift
-//  
 //
-//  Created by Gagandeep Dass Kaur on 20/2/25.
+//
+//  Created by Santiago Moreno on 24/10/24.
 //
 
 import Foundation
@@ -11,18 +11,19 @@ public enum ManagerError: Error, LocalizedError {
     case studentNotAddedError
     case subjectNotAssignedError
     case reportNotFoundError
-    case maxStudentReachedError(max: Int)
+    case maxStudentsReachedError(max: Int)
     
-    public var errorDescription: String ? {
+    public var errorDescription: String? {
         switch self {
         case .studentNotAddedError:
-            return "Student not added"
+            return "El estudiante no se pudo agregar"
         case .subjectNotAssignedError:
-            return "Subject not assigned"
+            return "No se pudo asignar al materia"
         case .reportNotFoundError:
-            return "Report not found"
-        case .maxStudentReachedError(max: let max):
-            return "Maximum student limit reached (\(max))"
+            return "El reporte no se pudo encontrar porque la lista de estudiantes está vacía"
+        case .maxStudentsReachedError(let max):
+            return "La cantidad máxima de estudiantes es: \(max) y ya fue alcanzada"
         }
     }
+    
 }

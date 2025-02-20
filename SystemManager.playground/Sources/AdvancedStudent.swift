@@ -1,42 +1,39 @@
 //
 //  AdvancedStudent.swift
-//  
 //
-//  Created by Gagandeep Dass Kaur on 20/2/25.
+//
+//  Created by Santiago Moreno on 23/10/24.
 //
 
 import Foundation
 
-// la classe 'AdvancedStudent' hereda de 'Student'
 public class AdvancedStudent: Student {
     let extraPoints: Double
     
     public init(name: String, age: Int, email: String, subjects: [Subject], scores: [Double], extraPoints: Double) {
         self.extraPoints = extraPoints
-        super.init(name: name, age:age, email: email, subjects: subjects, scores:scores)
+        super.init(name: name, age: age, email: email, subjects: subjects, scores: scores)
     }
     
-    public override func describe() -> String{
-            var description = """
-            -------------------
-            ADVANCED STUDENT:
-            -------------------
-            # Name: \(name)
-            # Age: \(age)
-            # Email: \(email)
-            # Extra Points: \(extraPoints)
-            # Actual Subjects:
-            """
-            
-            for (subject,score) in zip(subjects,scores) {
-                description += """
-                    \(subject.describe())
-                    Score: \(score)
-                    """
-            }
-            
-            description += "\n-------------------"
-            
-            return description
+    public override func describe() -> String {
+        var desc = """
+        ---------------------
+        ESTUDIANTE AVANZADO:
+        ---------------------
+        # Nombre: \(name)
+        # Correo electrónico: \(email)
+        # Edad: \(age)
+        # Puntos extra: \(extraPoints)
+        # Materias que esta cursando:
+        """
+        
+        for subject in subjects {
+            desc += "\n\(subject.describe())"
         }
+        
+        desc += """
+        \n---------------------
+        """
+        return desc
+    }
 }

@@ -1,23 +1,30 @@
-let math = Subject(name: "Math", teacherName: "Mr. Smith", level: SubjectLevel.intermediate)
-let spanish = Subject(name: "Spanish", teacherName: "Elena Montiel", level: .basic)
-let biology = Subject(name: "Biology", teacherName: "Mr. Parker", level: .intermediate)
-let economy = Subject(name: "Economy", teacherName: "Mr. Morales", level: .intermediate)
+let math = Subject(name: "Matematicas", teacherName: "Mr. Smith", level: SubjectLevel.intermediate)
+let spanish = Subject(name: "Español", teacherName: "Mr. S", level: .basic)
+let biology = Subject(name: "Biologia", teacherName: "Peter Parker", level: .intermediate)
+let economy = Subject(name: "Economia", teacherName: "Miles Morales", level: .intermediate)
 
-let s1 = Student(name: "Vegeta", age: 29, email: "vegetassj1@gmail.com", subjects: [], scores: []);
-let s2 = AdvancedStudent(name: "Goku", age: 29, email: "gokussj2@gmail.com", subjects: [], scores: [], extraPoints: 10)
+let s1 = Student(name: "Tiago", age: 18, email: "tiago@g.com", subjects: [], scores: [])
+let s2 = AdvancedStudent(name: "Maria", age: 19, email: "m@g.com", subjects: [], scores: [], extraPoints: 10)
 
 let service = StudentsManager(students: [], maxStudents: 3)
-service.insertStudent(nil)
-service.insertStudent(s2)
+do {
+    try service.insertStudent(s1)
+    try service.insertStudent(s2)
+    try service.insertStudent(s2)
+    try service.insertStudent(s2)
+} catch {
+    print(error.localizedDescription)
+}
 
-service.asignSubjectToStudent(subject: math, score: 80, student: s1)
-service.asignSubjectToStudent(subject: spanish, score: 70, student: s1)
-service.asignSubjectToStudent(subject: biology, score: 90, student: s1)
+try service.asignSubjectToStudent(subject: math, score: 80, student: s1)
+try service.asignSubjectToStudent(subject: spanish, score: 70, student: s1)
+try service.asignSubjectToStudent(subject: biology, score: 90, student: s1)
 
-/*
-service.asignSubjectToStudent(subject: math, score: 80, student: s2)
-service.asignSubjectToStudent(subject: spanish, score: 96, student: s2)
-service.asignSubjectToStudent(subject: economy, score: 100, student: s2)
-*/
+try service.asignSubjectToStudent(subject: math, score: 90, student: s2)
+try service.asignSubjectToStudent(subject: spanish, score: 60, student: s2)
+try service.asignSubjectToStudent(subject: economy, score: 60, student: s2)
 
-service.generateStudentsReport()
+try service.generateStudentsReport()
+
+let average = service.getAverages()
+let subjects = service.getCoursedSubjects()

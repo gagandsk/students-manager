@@ -1,8 +1,8 @@
 //
 //  Student.swift
-//  
 //
-//  Created by Gagandeep Dass Kaur on 20/2/25.
+//
+//  Created by Santiago Moreno on 23/10/24.
 //
 
 import Foundation
@@ -22,27 +22,25 @@ public class Student: Describable {
         self.scores = scores
     }
     
-    public func describe() -> String{
-        var description = """
-        -------------------
-        STUDENT:
-        -------------------
-        # Name: \(name)
-        # Age: \(age)
-        # Email: \(email)
-        # Actual Subjects:
+    public func describe() -> String {
+        var desc = """
+        ---------------------
+        ESTUDIANTE:
+        ---------------------
+        # Nombre: \(name)
+        # Correo electrónico: \(email)
+        # Edad: \(age)
+        # Materias que esta cursando:
         """
         
-        for (subject,score) in zip(subjects,scores) {
-            description += """
-                \(subject.describe())
-                Score: \(score)
-                """
+        for subject in subjects {
+            desc += "\n\(subject.describe())"
         }
         
-        description += "\n-------------------"
-        
-        return description
+        desc += """
+        \n---------------------
+        """
+        return desc
     }
     
     public func assignSubject(subject: Subject, score: Double) {
@@ -50,6 +48,7 @@ public class Student: Describable {
         self.scores.append(score)
     }
     
+    // Debe tener por lo menos el 60% de las materias pasadas
     public func isApproved() -> Bool {
         var approvedSubjectsCount = 0
         for i in 0..<subjects.count {
@@ -62,7 +61,7 @@ public class Student: Describable {
         }
         
         let percentage = (Double(approvedSubjectsCount) / Double(subjects.count)) * 100
-        return percentage > 60;
+        return percentage > 60
     }
     
     public func getAverageScore() -> Double {
@@ -72,4 +71,5 @@ public class Student: Describable {
         }
         return sum / Double(scores.count)
     }
+
 }
