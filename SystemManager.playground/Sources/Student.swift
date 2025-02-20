@@ -49,4 +49,27 @@ public class Student: Describable {
         self.subjects.append(subject)
         self.scores.append(score)
     }
+    
+    public func isApproved() -> Bool {
+        var approvedSubjectsCount = 0
+        for i in 0..<subjects.count {
+            let subject = subjects[i]
+            let score = scores[i]
+            
+            if subject.isPassed(score: score) {
+                approvedSubjectsCount += 1
+            }
+        }
+        
+        let percentage = (Double(approvedSubjectsCount) / Double(subjects.count)) * 100
+        return percentage > 60;
+    }
+    
+    public func getAverageScore() -> Double {
+        var sum: Double = 0
+        for score in scores {
+            sum += score
+        }
+        return sum / Double(scores.count)
+    }
 }
