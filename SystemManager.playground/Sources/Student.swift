@@ -7,12 +7,12 @@
 
 import Foundation
 
-public class Student {
+public class Student: Describable {
     let name: String
     let age: Int
     let email: String
-    let subjects: [Subject]
-    let scores: [Double]
+    var subjects: [Subject]
+    var scores: [Double]
     
     public init(name: String, age: Int, email: String, subjects: [Subject], scores: [Double]) {
         self.name = name
@@ -22,26 +22,31 @@ public class Student {
         self.scores = scores
     }
     
-    public func studentDescription() -> String{
-            var description = """
-            -------------------
-            STUDENT:
-            -------------------
-            # Name: \(name)
-            # Age: \(age)
-            # Email: \(email)
-            # Actual Subjects:
-            """
-            
-            for (subject,score) in zip(subjects,scores) {
-                description += """
-                    \(subject.subjectDescription())
-                    Score: \(score)
-                    """
-            }
-            
-            description += "\n-------------------"
-            
-            return description
+    public func describe() -> String{
+        var description = """
+        -------------------
+        STUDENT:
+        -------------------
+        # Name: \(name)
+        # Age: \(age)
+        # Email: \(email)
+        # Actual Subjects:
+        """
+        
+        for (subject,score) in zip(subjects,scores) {
+            description += """
+                \(subject.describe())
+                Score: \(score)
+                """
         }
+        
+        description += "\n-------------------"
+        
+        return description
+    }
+    
+    public func assignSubject(subject: Subject, score: Double) {
+        self.subjects.append(subject)
+        self.scores.append(score)
+    }
 }

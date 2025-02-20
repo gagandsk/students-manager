@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Subject {
+public struct Subject: Describable, Hashable{
     let name: String
     let teacherName: String
     let level: SubjectLevel
@@ -22,7 +22,7 @@ public struct Subject {
         return score >= minimumScore()
     }
     
-    public func subjectDescription() -> String{
+    public func describe() -> String{
         return """
         --------------------------------
         Subject: \(name)

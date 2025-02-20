@@ -16,7 +16,7 @@ public class AdvancedStudent: Student {
         super.init(name: name, age:age, email: email, subjects: subjects, scores:scores)
     }
     
-    public override func studentDescription() -> String{
+    public override func describe() -> String{
             var description = """
             -------------------
             ADVANCED STUDENT:
@@ -30,7 +30,7 @@ public class AdvancedStudent: Student {
             
             for (subject,score) in zip(subjects,scores) {
                 description += """
-                    \(subject.subjectDescription())
+                    \(subject.describe())
                     Score: \(score)
                     """
             }
