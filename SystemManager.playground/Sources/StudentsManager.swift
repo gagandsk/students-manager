@@ -8,9 +8,10 @@
 import Foundation
 
 public protocol Manageable {
-    func insertStudent(_ student: Student?)
-    func asignSubjectToStudent(subject: Subject, score: Double, student: Student?)
-    func generateStudentsReport()
+    //con 'throws' estamos indicando que vamos a lanzar un error
+    func insertStudent(_ student: Student?) throws
+    func asignSubjectToStudent(subject: Subject, score: Double, student: Student?) throws
+    func generateStudentsReport() throws
     func getApprovedStudents() ->[Student]
     func getReprobedStudents() ->[Student]
     func getAverages() -> [Double]
@@ -20,19 +21,26 @@ public protocol Manageable {
 
 public class StudentsManager: Manageable {
     var students: [Student]
+    let maxStudents: Int
     
-    public init(students: [Student]) {
+    public init(students: [Student], maxStudents: Int) {
         self.students = students
+        self.maxStudents = maxStudents
     }
     
-    public func insertStudent(_ student: Student?) {
+    public func insertStudent(_ student: Student?) throws {
         guard let student else {
-            return
+            throw ManagerError.studentNotAddedError
         }
-        students.append(student)
+        if(students.count < maxStudents) {
+            students.append(student)
+        } else {
+            throw ManagerError.maxStudentReachedError(max: maxStudents)
+        }
+        
     }
     
-    public func asignSubjectToStudent(subject: Subject, score: Double, student: Student?) {
+    public func asignSubjectToStudent(subject: Subject, score: Double, student: Student?) throws {
         if let student {
             for s in students {
                 if student.email.elementsEqual(s.email) {
@@ -40,13 +48,17 @@ public class StudentsManager: Manageable {
                 }
             }
         } else {
-            //TODO: throw error
+            throw ManagerError.subjectNotAssignedError
         }
     }
     
-    public func generateStudentsReport() {
-        for student in students {
-            print(student.describe())
+    public func generateStudentsReport() throws {
+        if(students.isEmpty) {
+            throw ManagerError.reportNotFoundError
+        } else {
+            for student in students {
+                print(student.describe())
+            }
         }
     }
     

@@ -6,7 +6,7 @@ let economy = Subject(name: "Economy", teacherName: "Mr. Morales", level: .inter
 let s1 = Student(name: "Vegeta", age: 29, email: "vegetassj1@gmail.com", subjects: [], scores: []);
 let s2 = AdvancedStudent(name: "Goku", age: 29, email: "gokussj2@gmail.com", subjects: [], scores: [], extraPoints: 10)
 
-let service = StudentsManager(students: [])
+let service = StudentsManager(students: [], maxStudents: 3)
 service.insertStudent(nil)
 service.insertStudent(s2)
 
